@@ -1,1 +1,14 @@
-<p>{{product.name}}</p>
+<div class="product">
+  <img class="product-img" [src]="product.url" />
+  <div>
+    <p class="title">{{ product.name }}</p>
+    <p class="text">${{ product.price }}</p>
+  </div>
+  <div class="add-item">
+    <select>
+      <option *ngFor="let amount of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">{{amount}}</option>
+    </select>
+    <br/>
+    <button>Add to cart</button>
+  </div>
+</div>
