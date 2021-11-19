@@ -30,4 +30,27 @@ describe('DataService', () => {
       done();
     });
   });
+
+  it('should return data by id', (done: DoneFn) => {
+    const expectedProductData = {
+      id: 2,
+      name: 'Headphones',
+      price: 249.99,
+      url: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+      description: 'Listen to stuff!',
+    };
+
+    dataService.getProduct(2).subscribe((data: Product | undefined) => {
+      expect(data).toBeDefined();
+      expect(data).toEqual(expectedProductData);
+      done();
+    });
+  });
+
+  it('should return undefined if product not exist', (done: DoneFn) => {
+    dataService.getProduct(10).subscribe((data: Product | undefined) => {
+      expect(data).toBeUndefined();
+      done();
+    });
+  });
 });
