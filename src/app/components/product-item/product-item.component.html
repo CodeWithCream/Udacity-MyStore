@@ -1,5 +1,5 @@
 <div class="product">
-  <img class="product-img" [src]="product.url" />
+  <img class="product-img" [src]="product.url" (click)="openDetails()"/>
   <div>
     <p class="title">{{ product.name }}</p>
     <p class="text">${{ product.price }}</p>
