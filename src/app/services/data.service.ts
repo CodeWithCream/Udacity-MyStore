@@ -17,9 +17,7 @@ export class DataService {
   getProduct(id: number): Observable<Product | undefined> {
     return this.http.get<Product[]>(this.dataUrl).pipe(
       map((items: Product[]) => {
-        return items.find((item: Product) => {
-          return item.id === id;
-        });
+        return items.find((item: Product) => item.id === id);
       })
     );
   }

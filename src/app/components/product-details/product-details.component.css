@@ -1,0 +1,61 @@
+.error{
+    text-align: center;
+    margin-top: 30px;
+}
+
+.product {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  row-gap: 20px;
+  column-gap: 20px;
+  margin: 20px;
+}
+
+.product-data {
+  flex: 1 0 40%;
+  margin: 20px;
+}
+
+.product-img {
+  text-align: right;
+}
+
+.product-data img {
+  width: 200px;
+  margin-right: 0;
+}
+
+.title {
+  font-weight: bold;
+  font-size: xx-large;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.text {
+  margin: 0;
+}
+
+.add-item {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.add-item select {
+  width: 100px;
+  text-align: center;
+}
+
+.add-item button {
+  width: 100px;
+  height: 30px;
+  margin-top: 5px;
+}
+
+.link-back{
+    margin-top: 30px;
+    color: #2bade1;
+}
