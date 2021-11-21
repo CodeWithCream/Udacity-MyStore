@@ -1,3 +1,4 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/model/product';
 import { DataService } from 'src/app/services/data.service';
@@ -18,5 +19,5 @@ export class ProductListComponent implements OnInit {
     this.dataService.getProducts().subscribe((products) => {
       this.products = products;
     });
-  }
+  }  
 }

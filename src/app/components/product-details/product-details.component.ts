@@ -12,6 +12,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 export class ProductDetailsComponent implements OnInit {
   private id!: number;
   product: Product | undefined;
+  quantity: number = 1;
 
   faArrowLeft = faArrowLeft;
 
@@ -28,5 +29,19 @@ export class ProductDetailsComponent implements OnInit {
         this.product = product;
       });
     });
+  }
+
+  addToCart(): void {
+    if (this.product !== undefined) {
+      const productToAdd = this.product as Product;
+      this.dataService
+        .addToCart({ product: this.product, quantity: this.quantity })
+        .subscribe(() => {
+          alert(
+            `Product: ${productToAdd.name}, quantity: ${this.quantity} added to cart`
+          );
+          this.quantity = 1; //restore value
+        });
+    }
   }
 }
