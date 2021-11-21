@@ -5,8 +5,12 @@
         class="container-item"
         *ngFor="let cartItem of cartItems"
         [cartItem]="cartItem"
+        (itemChanged)="itemChanged()"
       >
       </app-cart-item>
+    </div>
+    <div class="total">
+      <h2>Total: ${{total}}</h2>
     </div>
   </div>
   <div class="container-item">bbbbb</div>
