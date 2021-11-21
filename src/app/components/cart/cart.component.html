@@ -1,1 +1,13 @@
-<p>cart works!</p>
+<div class="container">
+  <div class="container-item">
+    <div class="column-container">
+      <app-cart-item
+        class="container-item"
+        *ngFor="let cartItem of cartItems"
+        [cartItem]="cartItem"
+      >
+      </app-cart-item>
+    </div>
+  </div>
+  <div class="container-item">bbbbb</div>
+</div>

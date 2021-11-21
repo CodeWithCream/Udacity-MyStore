@@ -35,7 +35,7 @@ export class ProductDetailsComponent implements OnInit {
     if (this.product !== undefined) {
       const productToAdd = this.product as Product;
       this.dataService
-        .addToCart({ product: this.product, quantity: this.quantity })
+        .addToCart({ productId: this.product.id, quantity: this.quantity })
         .subscribe(() => {
           alert(
             `Product: ${productToAdd.name}, quantity: ${this.quantity} added to cart`

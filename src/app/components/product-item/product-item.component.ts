@@ -22,7 +22,7 @@ export class ProductItemComponent implements OnInit {
 
   addToCart(): void {
     this.dataService
-      .addToCart({ product: this.product, quantity: this.quantity })
+      .addToCart({ productId: this.product.id, quantity: this.quantity })
       .subscribe(() => {
         alert(
           `Product: ${this.product.name}, quantity: ${this.quantity} added to cart`

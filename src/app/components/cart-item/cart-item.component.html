@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="container-item product-data product-img">
+    <img [src]="cartItem.product.url" />
+  </div>
+  <div class="product-data">
+    <p class="title">{{ cartItem.product.name }}</p>
+    <p class="text">${{ total }}</p>
+    <div class="form-group">
+      <label for="quantity" class="text">Amount: </label>
+      <input
+        type="text"
+        name="quantity"
+        required
+        min="0"
+        [(ngModel)]="cartItem.quantity"
+        (ngModelChange)="quantityChanged()"
+      />
+    </div>
+  </div>
+</div>

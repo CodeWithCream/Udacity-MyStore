@@ -1,6 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { CartItem } from '../model/cart-item';
+import { CartItemData } from '../model/cart-item-data';
 import { Product } from '../model/product';
 
 import { DataService } from './data.service';
@@ -56,62 +57,66 @@ describe('DataService', () => {
   });
 
   it('should add new product to cart', (done: DoneFn) => {
-    let cartItem: CartItem = {
-      product: {
-        id: 2,
-        name: 'Headphones',
-        price: 249.99,
-        url: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
-        description: 'Listen to stuff!',
-      },
-      quantity: 3,
+    let product: Product = {
+      id: 2,
+      name: 'Headphones',
+      price: 249.99,
+      url: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+      description: 'Listen to stuff!',
+    };
+
+    let cartItem = { productId: product.id, quantity: 3 };
+
+    let expectedCartItemData = {
+      product: product,
+      quantity: cartItem.quantity
     };
 
     dataService.addToCart(cartItem).subscribe(() => done());
 
     dataService.getCartData().subscribe((items) => {
       expect(items.length).toEqual(1);
-      expect(items[0]).toEqual(cartItem);
+      expect(items[0]).toEqual(expectedCartItemData);
       done();
     });
   });
 
   it('should add quantity to existing product in cart', (done: DoneFn) => {
-    let cartItem: CartItem = {
-      product: {
-        id: 2,
-        name: 'Headphones',
-        price: 249.99,
-        url: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
-        description: 'Listen to stuff!',
-      },
-      quantity: 3,
+    let product: Product = {
+      id: 2,
+      name: 'Headphones',
+      price: 249.99,
+      url: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+      description: 'Listen to stuff!',
     };
+    let cartItem1 = { productId: product.id, quantity: 3 };
 
-    dataService.addToCart(cartItem).subscribe(() => done());
+    dataService.addToCart(cartItem1).subscribe(() => done());
 
-    let newCartItem: CartItem = {
-      product: {
-        id: 2,
-        name: 'Headphones',
-        price: 249.99,
-        url: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
-        description: 'Listen to stuff!',
-      },
-      quantity: 1,
-    };
+    let cartItem2 = { productId: product.id, quantity: 3 };
 
-    dataService.addToCart(newCartItem).subscribe(() => done());
+    dataService.addToCart(cartItem2).subscribe(() => done());
 
     dataService.getCartData().subscribe((items) => {
       expect(items.length).toEqual(1);
-      expect(items[0].quantity).toEqual(4);
+      expect(items[0].quantity).toEqual(
+        cartItem1.quantity + cartItem2.quantity
+      );
       done();
     });
   });
 
   it('sholud return cart data', (done: DoneFn) => {
-    let cartItemsToAdd = [
+    let cartItemsToAdd: CartItem[] = [
+      { productId: 2, quantity: 1 },
+      { productId: 1, quantity: 3 },
+    ];
+
+    cartItemsToAdd.forEach((cartItem) =>
+      dataService.addToCart(cartItem).subscribe(() => done())
+    );
+
+    const expectedCartItems: CartItemData[] = [
       {
         product: {
           id: 2,
@@ -120,7 +125,7 @@ describe('DataService', () => {
           url: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
           description: 'Listen to stuff!',
         },
-        quantity: 1,
+        quantity: 1
       },
       {
         product: {
@@ -134,12 +139,8 @@ describe('DataService', () => {
       },
     ];
 
-    cartItemsToAdd.forEach((cartItem) =>
-      dataService.addToCart(cartItem).subscribe(() => done())
-    );
-
     dataService.getCartData().subscribe((items) => {
-      expect(items).toEqual(cartItemsToAdd);
+      expect(items).toEqual(expectedCartItems);
       done();
     });
   });
