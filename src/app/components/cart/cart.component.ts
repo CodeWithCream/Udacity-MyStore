@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CartItemData } from 'src/app/model/cart-item-data';
+import { customer } from 'src/app/model/customer';
 import { DataService } from 'src/app/services/data.service';
 
 @Component({
@@ -10,8 +11,15 @@ import { DataService } from 'src/app/services/data.service';
 export class CartComponent implements OnInit {
   cartItems: CartItemData[] = [];
   total: number = 0;
+  customer: customer;
 
-  constructor(private dataService: DataService) {}
+  constructor(private dataService: DataService) {
+    this.customer = {
+      fullName: '',
+      address: '',
+      creditCardNumber: '',
+    };
+  }
 
   ngOnInit(): void {
     this.dataService.getCartData().subscribe((cartItems) => {
@@ -30,4 +38,6 @@ export class CartComponent implements OnInit {
   itemChanged() {
     this.calculateTotal(this.cartItems);
   }
+
+  onSubmit() {}
 }

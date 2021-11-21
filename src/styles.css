@@ -7,15 +7,30 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+button {
+  width: 100px;
+  height: 30px;
+  margin-top: 5px;
+}
+
+button:hover:not([disabled]) {
   background-color: gray;
   color: black;
 }
 
-select{
-    cursor: pointer;
+button:disabled {
+  background-color: #AAA;
+  pointer-events: none;
 }
 
-img{
-    cursor: pointer;
+select {
+  cursor: pointer;
+}
+
+img {
+  cursor: pointer;
+}
+
+.alert {
+  color: red;
 }
