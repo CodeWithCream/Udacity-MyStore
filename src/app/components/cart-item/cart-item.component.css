@@ -27,9 +27,15 @@
 
 .form-group{
   display: flex;
+  flex-wrap: wrap;
+  width: 200px;
 }
 
 .form-group input{
   width: 75px;
   margin-left: 10px;
+}
+
+.alert{
+  color:red;;
 }

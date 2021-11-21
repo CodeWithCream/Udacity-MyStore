@@ -8,13 +8,21 @@
     <div class="form-group">
       <label for="quantity" class="text">Amount: </label>
       <input
-        type="text"
+        type="number"
         name="quantity"
+        #quantity="ngModel"
         required
         min="0"
         [(ngModel)]="cartItem.quantity"
         (ngModelChange)="quantityChanged()"
       />
+      <div
+        *ngIf="quantity.invalid && (quantity.dirty || quantity.touched)"
+        class="alert"
+      >
+        <div *ngIf="quantity.errors?.['required']">Quantity is required.</div>
+        <div *ngIf="quantity.errors?.['min']">Quantity must be greater then 0</div>
+      </div>
     </div>
   </div>
 </div>
