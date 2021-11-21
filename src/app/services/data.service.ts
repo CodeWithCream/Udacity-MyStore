@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { forkJoin, map, Observable } from 'rxjs';
+import { forkJoin, map, observable, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '../model/product';
 import { CartItem } from '../model/cart-item';
@@ -26,17 +26,21 @@ export class DataService {
     );
   }
 
-  addToCart(cartItem: CartItem): void {
-    let quantity = cartItem.quantity;
-    if (this.cart.has(cartItem.product.id)) {
-      quantity += this.cart.get(cartItem.product.id) || 0;
-    }
+  addToCart(cartItem: CartItem): Observable<void> {
+    return new Observable<void>((subscriber) => {
+      let quantity = cartItem.quantity;
+      if (this.cart.has(cartItem.product.id)) {
+        quantity += this.cart.get(cartItem.product.id) || 0;
+      }
 
-    this.cart.set(cartItem.product.id, quantity);
+      this.cart.set(cartItem.product.id, quantity);
+
+      subscriber.next();
+    });
   }
 
   getCartData(): Observable<CartItem[]> {
-    const observable = new Observable<CartItem[]>((subscriber) => {
+    return new Observable<CartItem[]>((subscriber) => {
       let requests = Array.from(this.cart.keys()).map((id) => {
         return this.getProduct(id);
       });
@@ -55,6 +59,5 @@ export class DataService {
         subscriber.next(cartItems);
       });
     });
-    return observable;
   }
 }

@@ -67,7 +67,8 @@ describe('DataService', () => {
       quantity: 3,
     };
 
-    dataService.addToCart(cartItem);
+    dataService.addToCart(cartItem).subscribe(() => done());
+
     dataService.getCartData().subscribe((items) => {
       expect(items.length).toEqual(1);
       expect(items[0]).toEqual(cartItem);
@@ -87,7 +88,7 @@ describe('DataService', () => {
       quantity: 3,
     };
 
-    dataService.addToCart(cartItem);
+    dataService.addToCart(cartItem).subscribe(() => done());
 
     let newCartItem: CartItem = {
       product: {
@@ -100,11 +101,45 @@ describe('DataService', () => {
       quantity: 1,
     };
 
-    dataService.addToCart(newCartItem);
+    dataService.addToCart(newCartItem).subscribe(() => done());
 
     dataService.getCartData().subscribe((items) => {
       expect(items.length).toEqual(1);
       expect(items[0].quantity).toEqual(4);
+      done();
+    });
+  });
+
+  it('sholud return cart data', (done: DoneFn) => {
+    let cartItemsToAdd = [
+      {
+        product: {
+          id: 2,
+          name: 'Headphones',
+          price: 249.99,
+          url: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+          description: 'Listen to stuff!',
+        },
+        quantity: 1,
+      },
+      {
+        product: {
+          id: 1,
+          name: 'Book',
+          price: 9.99,
+          url: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+          description: 'You can read it!',
+        },
+        quantity: 3,
+      },
+    ];
+
+    cartItemsToAdd.forEach((cartItem) =>
+      dataService.addToCart(cartItem).subscribe(() => done())
+    );
+
+    dataService.getCartData().subscribe((items) => {
+      expect(items).toEqual(cartItemsToAdd);
       done();
     });
   });
