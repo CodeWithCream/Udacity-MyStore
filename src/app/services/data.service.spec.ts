@@ -69,7 +69,7 @@ describe('DataService', () => {
 
     let expectedCartItemData = {
       product: product,
-      quantity: cartItem.quantity
+      quantity: cartItem.quantity,
     };
 
     dataService.addToCart(cartItem).subscribe(() => done());
@@ -125,7 +125,7 @@ describe('DataService', () => {
           url: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
           description: 'Listen to stuff!',
         },
-        quantity: 1
+        quantity: 1,
       },
       {
         product: {
@@ -141,6 +141,26 @@ describe('DataService', () => {
 
     dataService.getCartData().subscribe((items) => {
       expect(items).toEqual(expectedCartItems);
+      done();
+    });
+  });
+
+  it('should clear cart', (done: DoneFn) => {
+    let product: Product = {
+      id: 2,
+      name: 'Headphones',
+      price: 249.99,
+      url: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+      description: 'Listen to stuff!',
+    };
+    let cartItem1 = { productId: product.id, quantity: 3 };
+
+    dataService.addToCart(cartItem1).subscribe(() => done());
+
+    dataService.emptyCart().subscribe(() => done());
+
+    dataService.getCartData().subscribe((items) => {
+      expect(items.length).toEqual(0);
       done();
     });
   });

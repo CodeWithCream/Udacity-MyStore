@@ -62,4 +62,11 @@ export class DataService {
       });
     });
   }
+
+  emptyCart():Observable<void>{
+    return new Observable<void>((subscriber) => {
+      this.cart.clear();
+      subscriber.next();
+    });
+  }
 }

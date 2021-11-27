@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { faGlassCheers } from '@fortawesome/free-solid-svg-icons';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-success',
@@ -12,8 +13,7 @@ export class SuccessComponent implements OnInit {
   customerName: string = '';
   total: number = 0;
 
-  constructor(private router: Router) {
-  }
+  constructor(private router: Router, private dataService: DataService) {}
 
   ngOnInit(): void {
     this.customerName = history.state.customer;
@@ -21,6 +21,7 @@ export class SuccessComponent implements OnInit {
   }
 
   goBack() {
+    this.dataService.emptyCart().subscribe();
     this.router.navigate(['products']);
   }
 }

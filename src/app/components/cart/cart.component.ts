@@ -46,6 +46,6 @@ export class CartComponent implements OnInit {
         customer: this.customer.fullName,
         total: this.total,
       },
-    });
+    });  
   }
 }
