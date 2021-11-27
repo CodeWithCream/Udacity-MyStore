@@ -12,7 +12,7 @@ export class SuccessComponent implements OnInit {
   customerName: string = '';
   total: number = 0;
 
-  constructor(private route: ActivatedRoute, private router: Router) {
+  constructor(private router: Router) {
   }
 
   ngOnInit(): void {
