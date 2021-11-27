@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CartItemData } from 'src/app/model/cart-item-data';
 import { customer } from 'src/app/model/customer';
 import { DataService } from 'src/app/services/data.service';
@@ -13,7 +14,7 @@ export class CartComponent implements OnInit {
   total: number = 0;
   customer: customer;
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService, private router: Router) {
     this.customer = {
       fullName: '',
       address: '',
@@ -39,5 +40,12 @@ export class CartComponent implements OnInit {
     this.calculateTotal(this.cartItems);
   }
 
-  onSubmit() {}
+  onSubmit() {
+    this.router.navigate(['success'], {
+      state: {
+        customer: this.customer.fullName,
+        total: this.total,
+      },
+    });
+  }
 }

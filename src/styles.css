@@ -19,7 +19,7 @@ button:hover:not([disabled]) {
 }
 
 button:disabled {
-  background-color: #AAA;
+  background-color: #aaa;
   pointer-events: none;
 }
 
@@ -33,4 +33,12 @@ img {
 
 .alert {
   color: red;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.centered{
+  text-align: center;
 }
