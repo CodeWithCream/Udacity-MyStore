@@ -10,7 +10,7 @@
       </app-cart-item>
     </div>
     <div class="total">
-      <h2>Total: ${{ total }}</h2>
+      <h2>Total: ${{ total.toFixed(2) }}</h2>
     </div>
   </div>
   <div class="container-item">
@@ -60,7 +60,7 @@
           type="text"
           name="creditCardNumber"
           required
-          minlength="16"
+          pattern="[0-9]{16}"
           [(ngModel)]="customer.creditCardNumber"
           #creditCardNumber="ngModel"
         />
@@ -80,7 +80,12 @@
         We'll never share your payment details with anyone else.
       </p>
 
-      <button type="submit" [disabled]="form.invalid">Submit</button>
+      <button
+        type="submit"
+        [disabled]="form.invalid || cartItems.length === 0 || total === 0"
+      >
+        Submit
+      </button>
     </form>
   </div>
 </div>
