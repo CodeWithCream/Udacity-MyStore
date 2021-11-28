@@ -12,6 +12,7 @@ export class CartItemComponent implements OnInit {
   totalItemPrice: number = 0;
   total: number = 0;
   @Output() itemChanged = new EventEmitter();
+  @Output() itemRemoved = new EventEmitter<number>();
 
   constructor() {}
 
@@ -26,5 +27,9 @@ export class CartItemComponent implements OnInit {
   quantityChanged() {
     this.calculateTotal();
     this.itemChanged.emit();
+  }
+
+  removeItem() {
+    this.itemRemoved.emit(this.cartItem.product.id);
   }
 }

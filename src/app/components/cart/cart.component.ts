@@ -40,12 +40,18 @@ export class CartComponent implements OnInit {
     this.calculateTotal(this.cartItems);
   }
 
+  itemRemoved(productId: number) {
+    this.dataService.removeFromCart(productId).subscribe(() => {
+      this.ngOnInit();
+    });
+  }
+
   onSubmit() {
     this.router.navigate(['success'], {
       state: {
         customer: this.customer.fullName,
         total: this.total,
       },
-    });  
+    });
   }
 }

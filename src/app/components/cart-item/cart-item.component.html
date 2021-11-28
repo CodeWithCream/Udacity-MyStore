@@ -16,6 +16,7 @@
         [(ngModel)]="cartItem.quantity"
         (ngModelChange)="quantityChanged()"
       />
+      <button class="remove-button" (click)="removeItem()" type='button'>X</button>
       <div
         *ngIf="quantity.invalid && (quantity.dirty || quantity.touched)"
         class="alert"

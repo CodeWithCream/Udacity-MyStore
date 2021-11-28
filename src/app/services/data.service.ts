@@ -40,11 +40,25 @@ export class DataService {
     });
   }
 
+  removeFromCart(productId: number): Observable<void> {
+    return new Observable<void>((subscriber) => {
+      if (this.cart.has(productId)) {
+        this.cart.delete(productId);
+      }
+
+      subscriber.next();
+    });
+  }
+
   getCartData(): Observable<CartItemData[]> {
     return new Observable<CartItemData[]>((subscriber) => {
       let requests = Array.from(this.cart.keys()).map((id) => {
         return this.getProduct(id);
       });
+
+      if (requests.length == 0) {
+        subscriber.next(new Array<CartItemData>());
+      }
 
       forkJoin(requests).subscribe((responses) => {
         const cartItems = new Array<CartItemData>();
@@ -54,7 +68,7 @@ export class DataService {
             let quantity = this.cart.get(product.id) || 0;
             cartItems.push({
               product: product,
-              quantity: quantity
+              quantity: quantity,
             });
           }
         });
@@ -63,7 +77,7 @@ export class DataService {
     });
   }
 
-  emptyCart():Observable<void>{
+  emptyCart(): Observable<void> {
     return new Observable<void>((subscriber) => {
       this.cart.clear();
       subscriber.next();
