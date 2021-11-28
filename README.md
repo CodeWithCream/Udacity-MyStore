@@ -2,6 +2,12 @@
 This project is created for the Udacity Full Stack Javascript Developer Nanodegree Program.
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.2.
 
+## Description
+The project is an Angular application called My Store. The purpose of the application is to offer the users to buy products from the store. User can see all available products, choose the product they want to buy, and its quantity, check the cart and finish the order. 
+
+### Technical details
+The application is not connected to the backend app, but it's reading products data from the static .json file and storing the data to its local session. 
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
